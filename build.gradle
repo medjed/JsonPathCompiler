@@ -2,11 +2,12 @@ plugins {
     id "com.jfrog.bintray" version "1.1"
     id "java"
     id "jacoco"
-    id "findbugs"
+    // id "findbugs"
     id "idea"
 }
 
 repositories {
+    mavenCentral()
     jcenter()
 }
 
@@ -20,10 +21,12 @@ targetCompatibility = 1.7
 
 dependencies {
     // The production code uses the SLF4J logging API at compile time
-    // compile 'org.slf4j:slf4j-api:1.7.21'
-
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'net.minidev:json-smart:2.2.1'
 
     testCompile 'junit:junit:4.+'
+    testCompile 'org.assertj:assertj-core:2.1.0'
+    testCompile 'org.slf4j:slf4j-simple:1.7.21'
 }
 
 task classpath(type: Copy, dependsOn: ["jar"]) {
