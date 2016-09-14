@@ -1,10 +1,14 @@
 package com.github.kysnm.jsonpathcompiler;
 
+import com.github.kysnm.jsonpathcompiler.internal.Path;
+import com.github.kysnm.jsonpathcompiler.spi.json.JsonSmartJsonProvider;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
 
+import static com.github.kysnm.jsonpathcompiler.Option.ALWAYS_RETURN_LIST;
+import static com.github.kysnm.jsonpathcompiler.Option.AS_PATH_LIST;
 import static com.github.kysnm.jsonpathcompiler.internal.path.PathCompiler.compile;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -152,7 +156,8 @@ public class PathCompilerTest {
                 + "}";
         // message: it\ -> (after json escaping) -> "it\\" -> (after java escaping) -> "\"it\\\\\""
 
-        List<String> result = JsonPath.read(json, "$.logs[?(@.message == 'it\\\\')].message");
+        Path path = compile("$.logs[?(@.message == 'it\\\\')].message");
+        List<String> result = read(json, path);
 
         assertThat(result).containsExactly("it\\");
     }
@@ -168,7 +173,8 @@ public class PathCompilerTest {
                 + "    ]\n"
                 + "}";
 
-        List<String> result = JsonPath.read(json, "$.logs[?(@.message =~ /\\(it/)].message");
+        Path path = compile("$.logs[?(@.message =~ /\\(it/)].message");
+        List<String> result = read(json, path);
 
         assertThat(result).containsExactly("(it");
     }
@@ -184,7 +190,9 @@ public class PathCompilerTest {
                 + "    ]\n"
                 + "}";
 
-        List<String> result = JsonPath.read(json, "$.logs[?(@.message =~ /&&|it/)].message");
+//        List<String> result = JsonPath.read(json, "$.logs[?(@.message =~ /&&|it/)].message");
+        Path path = compile("$.logs[?(@.message =~ /&&|it/)].message");
+        List<String> result = read(json, path);
 
         assertThat(result).containsExactly("it");
     }
@@ -200,7 +208,8 @@ public class PathCompilerTest {
                 + "    ]\n"
                 + "}";
 
-        List<String> result = JsonPath.read(json, "$.logs[?(@.message == '&& it')].message");
+        Path path = compile("$.logs[?(@.message == '&& it')].message");
+        List<String> result = read(json, path);
 
         assertThat(result).containsExactly("&& it");
     }
@@ -215,10 +224,12 @@ public class PathCompilerTest {
                 + "    ]\n"
                 + "}";
 
-        List<String> result = JsonPath.read(json, "$.logs[?(@.message && (@.id == 1 || @.id == 2))].id");
+        Path path = compile("$.logs[?(@.message && (@.id == 1 || @.id == 2))].id");
+        List<String> result = read(json, path);
         assertThat(result).isEmpty();
 
-        result = JsonPath.read(json, "$.logs[?((@.id == 2 || @.id == 1) && @.message)].id");
+        path = compile("$.logs[?((@.id == 2 || @.id == 1) && @.message)].id");
+        result = read(json, path);
         assertThat(result).isEmpty();
     }
 
@@ -232,7 +243,8 @@ public class PathCompilerTest {
                 + "    ]\n"
                 + "}";
 
-        List<String> result = JsonPath.read(json, "$.logs[?(@.x && @.y || @.id)]");
+        Path path = compile("$.logs[?(@.x && @.y || @.id)]");
+        List<String> result = read(json, path);
         assertThat(result).hasSize(1);
     }
 
@@ -247,7 +259,8 @@ public class PathCompilerTest {
                 + "    ]\n"
                 + "}";
 
-        List<String> result = JsonPath.read(json, "$.logs[?(@.message == '] it')].message");
+        Path path = compile("$.logs[?(@.message == '] it')].message");
+        List<String> result = read(json, path);
 
         assertThat(result).containsExactly("] it");
     }
@@ -263,7 +276,51 @@ public class PathCompilerTest {
     }
 
     @Test(expected = InvalidPathException.class)
-    public void accept_only_a_single_comma_between_indexes() {
-        compile("$['1', ,'3']");
+    public void accept_only_a_single_comma_between_indexes() { compile("$['1', ,'3']"); }
+
+    public static List<String> read(String json, Path path) {
+        Object jsonObject = new JsonSmartJsonProvider().parse(json);
+        Configuration configuration = Configuration.defaultConfiguration();
+
+        boolean optAsPathList = configuration.containsOption(AS_PATH_LIST);
+        boolean optAlwaysReturnList = configuration.containsOption(Option.ALWAYS_RETURN_LIST);
+        boolean optSuppressExceptions = configuration.containsOption(Option.SUPPRESS_EXCEPTIONS);
+
+        try {
+            if(path.isFunctionPath()){
+                if(optAsPathList || optAlwaysReturnList){
+                    throw new JsonPathException("Options " + AS_PATH_LIST + " and " + ALWAYS_RETURN_LIST + " are not allowed when using path functions!");
+                }
+                return path.evaluate(jsonObject, jsonObject, configuration).getValue(true);
+
+            } else if(optAsPathList){
+                return  (List<String>)path.evaluate(jsonObject, jsonObject, configuration).getPath();
+
+            } else {
+                Object res = path.evaluate(jsonObject, jsonObject, configuration).getValue(false);
+                if(optAlwaysReturnList && path.isDefinite()){
+                    Object array = configuration.jsonProvider().createArray();
+                    configuration.jsonProvider().setArrayIndex(array, 0, res);
+                    return (List<String>)array;
+                } else {
+                    return (List<String>)res;
+                }
+            }
+        } catch (RuntimeException e){
+            if(!optSuppressExceptions){
+                throw e;
+            } else {
+                if(optAsPathList){
+                    return (List<String>)configuration.jsonProvider().createArray();
+                } else {
+                    if(optAlwaysReturnList){
+                        return (List<String>)configuration.jsonProvider().createArray();
+                    } else {
+                        return (List<String>)(path.isDefinite() ? null : configuration.jsonProvider().createArray());
+                    }
+                }
+            }
+        }
     }
+
 }
