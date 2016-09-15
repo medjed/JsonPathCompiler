@@ -41,9 +41,9 @@ public class FilterCompilerTest {
         assertThat(compile("[?(((@)))]").toString()).isEqualTo("[?(@)]");
         assertThat(compile("[?(@.name =~ /.*?/i)]").toString()).isEqualTo("[?(@['name'] =~ /.*?/i)]");
         assertThat(compile("[?(@.name =~ /.*?/)]").toString()).isEqualTo("[?(@['name'] =~ /.*?/)]");
-        assertThat(compile("[?($[\"firstname\"][\"lastname\"])]").toString()).isEqualTo("[?($[\"firstname\"][\"lastname\"])]");
-        assertThat(compile("[?($[\"firstname\"].lastname)]").toString()).isEqualTo("[?($[\"firstname\"]['lastname'])]");
-        assertThat(compile("[?($[\"firstname\", \"lastname\"])]").toString()).isEqualTo("[?($[\"firstname\",\"lastname\"])]");
+        assertThat(compile("[?($[\"firstname\"][\"lastname\"])]").toString()).isEqualTo("[?($['firstname']['lastname'])]");
+        assertThat(compile("[?($[\"firstname\"].lastname)]").toString()).isEqualTo("[?($['firstname']['lastname'])]");
+        assertThat(compile("[?($[\"firstname\", \"lastname\"])]").toString()).isEqualTo("[?($['firstname','lastname'])]");
         assertThat(compile("[?(((@.a && @.b || @.c)) || @.x)]").toString()).isEqualTo("[?(((@['a'] && @['b']) || @['c']) || @['x'])]");
 
     }
@@ -57,7 +57,7 @@ public class FilterCompilerTest {
     @Test
     public void string_can_contain_path_chars() {
         assertThat(compile("[?(@[')]@$)]'] == ')]@$)]')]").toString()).isEqualTo("[?(@[')]@$)]'] == ')]@$)]')]");
-        assertThat(compile("[?(@[\")]@$)]\"] == \")]@$)]\")]").toString()).isEqualTo("[?(@[\")]@$)]\"] == \")]@$)]\")]");
+        assertThat(compile("[?(@[\")]@$)]\"] == \")]@$)]\")]").toString()).isEqualTo("[?(@[')]@$)]'] == \")]@$)]\")]");
     }
 
     @Test(expected = InvalidPathException.class)

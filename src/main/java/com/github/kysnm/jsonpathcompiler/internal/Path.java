@@ -15,6 +15,7 @@
 package com.github.kysnm.jsonpathcompiler.internal;
 
 import com.github.kysnm.jsonpathcompiler.Configuration;
+import com.github.kysnm.jsonpathcompiler.internal.path.PathToken;
 
 /**
  *
@@ -60,5 +61,9 @@ public interface Path {
      * @return true id this path is starts with '$' and false if the path starts with '@'
      */
     boolean isRootPath();
+
+    PathToken getRoot();
+
+    String getParentPath();
 
 }

@@ -19,6 +19,7 @@ import com.github.kysnm.jsonpathcompiler.internal.EvaluationAbortException;
 import com.github.kysnm.jsonpathcompiler.internal.EvaluationContext;
 import com.github.kysnm.jsonpathcompiler.internal.Path;
 import com.github.kysnm.jsonpathcompiler.internal.PathRef;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +35,14 @@ public class CompiledPath implements Path {
     public CompiledPath(RootPathToken root, boolean isRootPath) {
         this.root = root;
         this.isRootPath = isRootPath;
+    }
+
+    @Override
+    public PathToken getRoot() { return root; }
+
+    @Override
+    public String getParentPath() {
+        return StringUtils.removeEnd(root.toString(), root.getTailPath());
     }
 
     @Override

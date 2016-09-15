@@ -15,6 +15,7 @@
 package com.github.kysnm.jsonpathcompiler.internal.path;
 
 import com.github.kysnm.jsonpathcompiler.internal.PathRef;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -76,4 +77,23 @@ public class RootPathToken extends PathToken {
     public boolean isFunctionPath() {
         return (tail instanceof FunctionPathToken);
     }
+
+
+    public PathToken getTail() { return tail; }
+
+    public String getTailPath() { return tail.toString(); }
+
+    public Long tailIndex() {
+        if (tail instanceof ArrayPathToken) {
+            ArrayIndexOperation arrayIndexOperation = ((ArrayPathToken) tail).getArrayIndexOperation();
+            if (arrayIndexOperation != null && arrayIndexOperation.isSingleIndexOperation())
+                return arrayIndexOperation.indexes().get(0).longValue();
+            else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
 }

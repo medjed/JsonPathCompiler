@@ -45,6 +45,13 @@ public class PathCompiler {
     private final LinkedList<Predicate> filterStack;
     private final CharacterIndex path;
 
+    public static Boolean isDocContext(String path)
+    {
+        StringBuilder dotNotationRootPath = new StringBuilder(DOC_CONTEXT).append(PERIOD);
+        StringBuilder bracketNotationRootPath = new StringBuilder(DOC_CONTEXT).append(OPEN_SQUARE_BRACKET);
+        return path.contains(dotNotationRootPath.toString()) || path.contains(bracketNotationRootPath.toString());
+    }
+
     private PathCompiler(String path, LinkedList<Predicate> filterStack) {
         this.filterStack = filterStack;
         this.path = new CharacterIndex(path);
@@ -225,7 +232,7 @@ public class PathCompiler {
         if(isFunction){
             appender.appendPathToken(PathTokenFactory.createFunctionPathToken(property, functionParameters));
         } else {
-            appender.appendPathToken(PathTokenFactory.createSinglePropertyPathToken(property, SINGLE_QUOTE));
+            appender.appendPathToken(PathTokenFactory.createSinglePropertyPathToken(property, true));
         }
 
         return path.currentIsTail() || readNextToken(appender);
@@ -597,8 +604,11 @@ public class PathCompiler {
         int endBracketIndex = path.indexOfNextSignificantChar(endPosition, CLOSE_SQUARE_BRACKET) + 1;
 
         path.setPosition(endBracketIndex);
+        if (endBracketIndex < endPosition) {
+            fail("endBracketIndex must be greater than endPosition " + path);
+        }
 
-        appender.appendPathToken(PathTokenFactory.createPropertyPathToken(properties, potentialStringDelimiter));
+        appender.appendPathToken(PathTokenFactory.createPropertyPathToken(properties, true));
 
         return path.currentIsTail() || readNextToken(appender);
     }

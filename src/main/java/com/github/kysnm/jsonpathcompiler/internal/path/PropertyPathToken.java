@@ -31,13 +31,18 @@ class PropertyPathToken extends PathToken {
 
     private final List<String> properties;
     private final String stringDelimiter;
+    private final boolean singleQuote;
 
-    public PropertyPathToken(List<String> properties, char stringDelimiter) {
+    private static final char SINGLE_QUOTE = '\'';
+    private static final char DOUBLE_QUOTE = '"';
+
+    public PropertyPathToken(List<String> properties, boolean singleQuote) {
         if (properties.isEmpty()) {
             throw new InvalidPathException("Empty properties");
         }
         this.properties = properties;
-        this.stringDelimiter = Character.toString(stringDelimiter);
+        this.stringDelimiter = singleQuote ? Character.toString(SINGLE_QUOTE) : Character.toString(DOUBLE_QUOTE);
+        this.singleQuote = singleQuote;
     }
 
     public List<String> getProperties() {

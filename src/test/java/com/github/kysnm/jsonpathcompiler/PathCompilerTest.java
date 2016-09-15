@@ -1,15 +1,19 @@
 package com.github.kysnm.jsonpathcompiler;
 
 import com.github.kysnm.jsonpathcompiler.internal.Path;
+import com.github.kysnm.jsonpathcompiler.internal.path.CompiledPath;
+import com.github.kysnm.jsonpathcompiler.internal.path.PathToken;
 import com.github.kysnm.jsonpathcompiler.spi.json.JsonSmartJsonProvider;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.github.kysnm.jsonpathcompiler.Option.ALWAYS_RETURN_LIST;
 import static com.github.kysnm.jsonpathcompiler.Option.AS_PATH_LIST;
 import static com.github.kysnm.jsonpathcompiler.internal.path.PathCompiler.compile;
+import static com.github.kysnm.jsonpathcompiler.internal.path.PathCompiler.isDocContext;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PathCompilerTest {
@@ -71,7 +75,7 @@ public class PathCompilerTest {
         assertThat(compile("$['1prop']").toString()).isEqualTo("$['1prop']");
         assertThat(compile("$['@prop']").toString()).isEqualTo("$['@prop']");
         assertThat(compile("$[  '@prop'  ]").toString()).isEqualTo("$['@prop']");
-        assertThat(compile("$[\"prop\"]").toString()).isEqualTo("$[\"prop\"]");
+        assertThat(compile("$[\"prop\"]").toString()).isEqualTo("$['prop']");
     }
 
     @Test
@@ -277,6 +281,38 @@ public class PathCompilerTest {
 
     @Test(expected = InvalidPathException.class)
     public void accept_only_a_single_comma_between_indexes() { compile("$['1', ,'3']"); }
+
+    @Test
+    public void a_doc_context_must_be_true() {
+        assert(isDocContext("$.prop"));
+    }
+
+    @Test
+    public void a_bracket_notation_doc_context_must_be_true() {
+        assert(isDocContext("$['prop']"));
+    }
+
+    @Test
+    public void a_parent_path_must_be_resolved() {
+        Path path = compile("$.prop[0]");
+        assertThat(path.getParentPath()).isEqualTo("$['prop']");
+    }
+
+    @Test
+    public void path_must_be_taken_out_a_token_step_by_step() {
+        Path path = compile("$.aaa.bbb.ccc");
+        List<String> paths = new ArrayList<>();
+        StringBuilder partialPath = new StringBuilder("$");
+        PathToken pathToken = path.getRoot();
+        int count = pathToken.getTokenCount();
+        for (int i = 1; i < count; i++) {
+            pathToken = pathToken.next();
+            partialPath.append(pathToken.getPathFragment().toString());
+            paths.add(partialPath.toString());
+        }
+
+        assertThat(paths).contains("$['aaa']", "$['aaa']['bbb']", "$['aaa']['bbb']['ccc']");
+    }
 
     public static List<String> read(String json, Path path) {
         Object jsonObject = new JsonSmartJsonProvider().parse(json);

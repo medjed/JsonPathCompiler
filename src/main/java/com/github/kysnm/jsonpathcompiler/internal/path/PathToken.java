@@ -136,11 +136,11 @@ public abstract class PathToken {
         }
     }
 
-    PathToken prev(){
+    public PathToken prev(){
         return prev;
     }
 
-    PathToken next() {
+    public PathToken next() {
         if (isLeaf()) {
             throw new IllegalStateException("Current path token is a leaf");
         }
@@ -212,6 +212,6 @@ public abstract class PathToken {
 
     public abstract boolean isTokenDefinite();
 
-    protected abstract String getPathFragment();
+    public abstract String getPathFragment();
 
 }
