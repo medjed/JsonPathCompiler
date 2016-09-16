@@ -15,7 +15,6 @@
 package com.github.kysnm.jsonpathcompiler.internal.path;
 
 import com.github.kysnm.jsonpathcompiler.internal.PathRef;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  *
