@@ -27,7 +27,7 @@ import static com.github.kysnm.jsonpathcompiler.internal.Utils.onlyOneIsTrueNonT
 /**
  *
  */
-class PropertyPathToken extends PathToken {
+public class PropertyPathToken extends PathToken {
 
     private final List<String> properties;
     private final String stringDelimiter;
