@@ -82,17 +82,4 @@ public class RootPathToken extends PathToken {
 
     public String getTailPath() { return tail.toString(); }
 
-    public Long tailIndex() {
-        if (tail instanceof ArrayPathToken) {
-            ArrayIndexOperation arrayIndexOperation = ((ArrayPathToken) tail).getArrayIndexOperation();
-            if (arrayIndexOperation != null && arrayIndexOperation.isSingleIndexOperation())
-                return arrayIndexOperation.indexes().get(0).longValue();
-            else {
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
-
 }

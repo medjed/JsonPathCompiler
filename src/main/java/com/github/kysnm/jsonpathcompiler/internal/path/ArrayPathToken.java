@@ -188,4 +188,5 @@ public class ArrayPathToken extends PathToken {
     }
 
     public ArrayIndexOperation getArrayIndexOperation() { return arrayIndexOperation; }
+    public ArraySliceOperation getArraySliceOperation() { return arraySliceOperation; }
 }
