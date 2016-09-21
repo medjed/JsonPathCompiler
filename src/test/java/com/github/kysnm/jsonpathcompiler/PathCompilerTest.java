@@ -1,7 +1,6 @@
 package com.github.kysnm.jsonpathcompiler;
 
 import com.github.kysnm.jsonpathcompiler.internal.Path;
-import com.github.kysnm.jsonpathcompiler.internal.path.CompiledPath;
 import com.github.kysnm.jsonpathcompiler.internal.path.PathToken;
 import com.github.kysnm.jsonpathcompiler.spi.json.JsonSmartJsonProvider;
 import org.junit.Ignore;
@@ -312,6 +311,11 @@ public class PathCompilerTest {
         }
 
         assertThat(paths).contains("$['aaa']", "$['aaa']['bbb']", "$['aaa']['bbb']['ccc']");
+    }
+
+    @Test(expected = InvalidPathException.class)
+    public void property_must_be_separated_by_commas() {
+        compile("$['aaa'}'bbb']");
     }
 
     public static List<String> read(String json, Path path) {
