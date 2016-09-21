@@ -604,9 +604,6 @@ public class PathCompiler {
         int endBracketIndex = path.indexOfNextSignificantChar(endPosition, CLOSE_SQUARE_BRACKET) + 1;
 
         path.setPosition(endBracketIndex);
-        if (endBracketIndex < endPosition) {
-            fail("endBracketIndex must be greater than endPosition " + path);
-        }
 
         appender.appendPathToken(PathTokenFactory.createPropertyPathToken(properties, true));
 
