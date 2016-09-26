@@ -17,7 +17,7 @@ configurations {
 }
 
 ext {
-    snapshotVersion = true
+    snapshotVersion = false
 }
 
 sourceCompatibility = 1.7
@@ -102,7 +102,7 @@ allprojects {
         publications = ['mavenPublication']
         configurations = ['archives']
 
-        dryRun = true
+        dryRun = false
     }
 }
 
