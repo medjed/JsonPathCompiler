@@ -70,7 +70,7 @@ allprojects {
 
     publishing {
         publications {
-            MyPublication(MavenPublication) {
+            mavenPublication(MavenPublication) {
                 from components.java
                 groupId 'com.github.kysnm'
                 artifactId 'JsonPathCompiler'
