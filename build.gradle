@@ -84,6 +84,7 @@ allprojects {
 
         pkg {
             repo = 'maven'
+            name = 'JsonPathCompiler'
             licenses = ['Apache-2.0']
             websiteUrl = 'https://github.com/kysnm/JsonPathCompiler'
             issueTrackerUrl = 'https://github.com/kysnm/JsonPathCompiler/issues'
