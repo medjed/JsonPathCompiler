@@ -1,1 +1,4 @@
-TBD
+Porting from https://github.com/jayway/JsonPath equivalent version 2.2.0, latest commit is 4dc0ca9
+Cut out a PathCompiler.
+
+Thanks for original authors.
