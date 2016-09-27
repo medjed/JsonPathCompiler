@@ -45,7 +45,7 @@ allprojects {
 
     group = 'com.github.kysnm'
     description = 'Porting from https://github.com/jayway/JsonPath Cut out a PathCompiler.'
-    version = '0.0.1' + (snapshotVersion ? "-SNAPSHOT" : "")
+    version = '0.0.2' + (snapshotVersion ? "-SNAPSHOT" : "")
 
     if (JavaVersion.current().isJava8Compatible()) {
         tasks.withType(Javadoc) {
