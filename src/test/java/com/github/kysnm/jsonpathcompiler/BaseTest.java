@@ -1,7 +1,7 @@
 package com.github.kysnm.jsonpathcompiler;
 
-import com.github.kysnm.jsonpathcompiler.internal.Path;
-import com.github.kysnm.jsonpathcompiler.internal.path.PredicateContextImpl;
+import com.github.kysnm.jsonpathcompiler.expressions.Path;
+import com.github.kysnm.jsonpathcompiler.expressions.path.PredicateContextImpl;
 import com.github.kysnm.jsonpathcompiler.spi.json.JsonSmartJsonProvider;
 import com.github.kysnm.jsonpathcompiler.spi.mapper.JsonSmartMappingProvider;
 

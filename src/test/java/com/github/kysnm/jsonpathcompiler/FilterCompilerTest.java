@@ -2,7 +2,7 @@ package com.github.kysnm.jsonpathcompiler;
 
 import org.junit.Test;
 
-import static com.github.kysnm.jsonpathcompiler.internal.filter.FilterCompiler.compile;
+import static com.github.kysnm.jsonpathcompiler.expressions.filter.FilterCompiler.compile;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FilterCompilerTest {

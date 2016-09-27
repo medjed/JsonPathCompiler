@@ -16,10 +16,6 @@ configurations {
     provided
 }
 
-ext {
-    snapshotVersion = false
-}
-
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
@@ -35,11 +31,21 @@ dependencies {
 }
 
 allprojects {
-    ext.displayName = null
-    ext.buildTimestamp = new Date().format('yyyy-MM-dd HH:mm:ss')
+    ext {
+        snapshotVersion = false
+        license = 'Apache-2.0'
+        licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+        websiteUrl = 'https://github.com/kysnm/JsonPathCompiler'
+        issueTrackerUrl = 'https://github.com/kysnm/JsonPathCompiler/issues'
+        vcsUrl = 'https://github.com/kysnm/JsonPathCompiler.git'
+        githubRepo = 'kysnm/JsonPathCompiler'
+        displayName = null
+        buildTimestamp = new Date().format('yyyy-MM-dd HH:mm:ss')
+    }
 
     group = 'com.github.kysnm'
-    version = '0.0.1' + (snapshotVersion ? "-SNAPSHOT" : "")
+    description = 'Porting from https://github.com/jayway/JsonPath Cut out a PathCompiler.'
+    version = '0.0.2' + (snapshotVersion ? "-SNAPSHOT" : "")
 
     if (JavaVersion.current().isJava8Compatible()) {
         tasks.withType(Javadoc) {
@@ -48,12 +54,12 @@ allprojects {
     }
 
 
-    task sourcesJar(type: Jar, dependsOn:classes) {
+    task sourcesJar(type: Jar, dependsOn: classes) {
         classifier = 'sources'
         from sourceSets.main.allSource
     }
 
-    task javadocJar(type: Jar, dependsOn:javadoc) {
+    task javadocJar(type: Jar, dependsOn: javadoc) {
         classifier = 'javadoc'
         from javadoc.destinationDir
     }
@@ -72,8 +78,33 @@ allprojects {
         publications {
             mavenPublication(MavenPublication) {
                 from components.java
-                groupId 'com.github.kysnm'
-                artifactId 'JsonPathCompiler'
+                groupId project.group
+                artifactId project.name
+                pom.withXml {
+                    asNode().children().last() + {
+                        resolveStrategy = DELEGATE_FIRST
+                        name project.name
+                        description project.description
+                        url project.vcsUrl
+                        scm {
+                            url project.vcsUrl
+                            connection "scm:git:$project.vcsUrl"
+                        }
+                        licenses {
+                            license {
+                                name project.license
+                                url project.licenseUrl
+                                distribution 'repo'
+                            }
+                        }
+                        developers {
+                            developer {
+                                id project.group
+                                name project.group
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -84,12 +115,12 @@ allprojects {
 
         pkg {
             repo = 'maven'
-            name = 'JsonPathCompiler'
-            licenses = ['Apache-2.0']
-            websiteUrl = 'https://github.com/kysnm/JsonPathCompiler'
-            issueTrackerUrl = 'https://github.com/kysnm/JsonPathCompiler/issues'
-            vcsUrl = 'https://github.com/kysnm/JsonPathCompiler.git'
-            githubRepo = 'kysnm/JsonPathCompiler'
+            name = project.name
+            licenses = [project.license]
+            websiteUrl = project.websiteUrl
+            issueTrackerUrl = project.issueTrackerUrl
+            vcsUrl = project.vcsUrl
+            githubRepo = project.githubRepo
             version {
                 name = project.version
                 released = new Date()
@@ -108,7 +139,7 @@ allprojects {
 
 task classpath(type: Copy, dependsOn: ["jar"]) {
     doFirst { file("classpath").deleteDir() }
-    from (configurations.provided + files(jar.archivePath))
+    from(configurations.provided + files(jar.archivePath))
     into "classpath"
 }
 clean { delete "classpath" }

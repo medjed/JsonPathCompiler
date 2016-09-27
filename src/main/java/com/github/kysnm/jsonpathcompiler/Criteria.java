@@ -14,11 +14,11 @@
  */
 package com.github.kysnm.jsonpathcompiler;
 
-import com.github.kysnm.jsonpathcompiler.internal.Path;
-import com.github.kysnm.jsonpathcompiler.internal.Utils;
-import com.github.kysnm.jsonpathcompiler.internal.filter.RelationalExpressionNode;
-import com.github.kysnm.jsonpathcompiler.internal.filter.RelationalOperator;
-import com.github.kysnm.jsonpathcompiler.internal.filter.ValueNode;
+import com.github.kysnm.jsonpathcompiler.expressions.Path;
+import com.github.kysnm.jsonpathcompiler.expressions.Utils;
+import com.github.kysnm.jsonpathcompiler.expressions.filter.RelationalExpressionNode;
+import com.github.kysnm.jsonpathcompiler.expressions.filter.RelationalOperator;
+import com.github.kysnm.jsonpathcompiler.expressions.filter.ValueNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static com.github.kysnm.jsonpathcompiler.internal.Utils.notNull;
+import static com.github.kysnm.jsonpathcompiler.expressions.Utils.notNull;
 
 
 /**
