@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.kysnm:JsonPathCompiler:0.0.1'
+    compile 'com.github.kysnm:JsonPathCompiler:0.0.2'
 }
 ```
 
