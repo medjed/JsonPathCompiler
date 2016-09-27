@@ -45,7 +45,7 @@ public class PathCompiler {
     private final LinkedList<Predicate> filterStack;
     private final CharacterIndex path;
 
-    public static Boolean isDocContext(String path)
+    public static Boolean isStartsWithDoller    (String path)
     {
         StringBuilder dotNotationRootPath = new StringBuilder(DOC_CONTEXT).append(PERIOD);
         StringBuilder bracketNotationRootPath = new StringBuilder(DOC_CONTEXT).append(OPEN_SQUARE_BRACKET);

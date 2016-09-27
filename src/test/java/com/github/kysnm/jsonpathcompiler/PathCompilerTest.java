@@ -12,7 +12,7 @@ import java.util.List;
 import static com.github.kysnm.jsonpathcompiler.Option.ALWAYS_RETURN_LIST;
 import static com.github.kysnm.jsonpathcompiler.Option.AS_PATH_LIST;
 import static com.github.kysnm.jsonpathcompiler.expressions.path.PathCompiler.compile;
-import static com.github.kysnm.jsonpathcompiler.expressions.path.PathCompiler.isDocContext;
+import static com.github.kysnm.jsonpathcompiler.expressions.path.PathCompiler.isStartsWithDoller;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PathCompilerTest {
@@ -283,12 +283,12 @@ public class PathCompilerTest {
 
     @Test
     public void a_doc_context_must_be_true() {
-        assert(isDocContext("$.prop"));
+        assert(isStartsWithDoller("$.prop"));
     }
 
     @Test
     public void a_bracket_notation_doc_context_must_be_true() {
-        assert(isDocContext("$['prop']"));
+        assert(isStartsWithDoller("$['prop']"));
     }
 
     @Test
