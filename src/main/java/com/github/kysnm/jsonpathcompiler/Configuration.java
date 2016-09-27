@@ -14,7 +14,7 @@
  */
 package com.github.kysnm.jsonpathcompiler;
 
-import com.github.kysnm.jsonpathcompiler.internal.DefaultsImpl;
+import com.github.kysnm.jsonpathcompiler.expressions.DefaultsImpl;
 import com.github.kysnm.jsonpathcompiler.spi.json.JsonProvider;
 import com.github.kysnm.jsonpathcompiler.spi.mapper.MappingProvider;
 
@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
-import static com.github.kysnm.jsonpathcompiler.internal.Utils.notNull;
+import static com.github.kysnm.jsonpathcompiler.expressions.Utils.notNull;
 import static java.util.Arrays.asList;
 
 /**

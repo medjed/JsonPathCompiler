@@ -14,7 +14,7 @@
  */
 package com.github.kysnm.jsonpathcompiler;
 
-import com.github.kysnm.jsonpathcompiler.internal.filter.FilterCompiler;
+import com.github.kysnm.jsonpathcompiler.expressions.filter.FilterCompiler;
 
 import java.util.ArrayList;
 import java.util.Collection;
