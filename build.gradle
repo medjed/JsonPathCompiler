@@ -43,7 +43,7 @@ allprojects {
         buildTimestamp = new Date().format('yyyy-MM-dd HH:mm:ss')
     }
 
-    group = 'com.github.kysnm'
+    group = 'com.dena.analytics'
     description = 'Porting from https://github.com/jayway/JsonPath Cut out a PathCompiler.'
     version = '0.0.3' + (snapshotVersion ? "-SNAPSHOT" : "")
 

@@ -1,6 +1,6 @@
 # JsonPathCompiler
 
-[![Build Status](https://travis-ci.org/kysnm/JsonPathCompiler.svg?branch=master)](https://travis-ci.org/kysnm/JsonPathCompiler)[ ![Download](https://api.bintray.com/packages/kysnm/maven/JsonPathCompiler/images/download.svg) ](https://bintray.com/kysnm/maven/JsonPathCompiler/_latestVersion)[![Javadocs](http://javadoc.io/badge/com.github.kysnm/JsonPathCompiler.svg)](http://javadoc.io/doc/com.github.kysnm/JsonPathCompiler)
+[![Build Status](https://travis-ci.org/kysnm/JsonPathCompiler.svg?branch=master)](https://travis-ci.org/kysnm/JsonPathCompiler)[ ![Download](https://api.bintray.com/packages/kysnm/maven/JsonPathCompiler/images/download.svg) ](https://bintray.com/kysnm/maven/JsonPathCompiler/_latestVersion)[![Javadocs](http://javadoc.io/badge/com.dena.analytics/JsonPathCompiler.svg)](http://javadoc.io/doc/com.dena.analytics/JsonPathCompiler)
 
 Porting from https://github.com/jayway/JsonPath equivalent version 2.2.0, latest commit is 4dc0ca9
 
@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.kysnm:JsonPathCompiler:0.0.3'
+    compile 'com.dena.analytics:JsonPathCompiler:0.0.3'
 }
 ```
 
