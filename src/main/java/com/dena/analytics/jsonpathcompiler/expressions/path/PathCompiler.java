@@ -42,14 +42,16 @@ public class PathCompiler {
     private static final char SINGLE_QUOTE = '\'';
     private static final char DOUBLE_QUOTE = '"';
 
+    private static final String DOT_NOTATION_ROOT_PATH = new String(new char[]{DOC_CONTEXT, PERIOD});
+    private static final String BRACKET_NOTATION_ROOT_PATH = new String(new char[]{DOC_CONTEXT, OPEN_SQUARE_BRACKET});
+
+
     private final LinkedList<Predicate> filterStack;
     private final CharacterIndex path;
 
-    public static Boolean isStartsWithDoller    (String path)
+    public static Boolean isProbablyJsonPath(String path)
     {
-        StringBuilder dotNotationRootPath = new StringBuilder(DOC_CONTEXT).append(PERIOD);
-        StringBuilder bracketNotationRootPath = new StringBuilder(DOC_CONTEXT).append(OPEN_SQUARE_BRACKET);
-        return path.contains(dotNotationRootPath.toString()) || path.contains(bracketNotationRootPath.toString());
+        return path.startsWith(DOT_NOTATION_ROOT_PATH) || path.startsWith(BRACKET_NOTATION_ROOT_PATH);
     }
 
     private PathCompiler(String path, LinkedList<Predicate> filterStack) {

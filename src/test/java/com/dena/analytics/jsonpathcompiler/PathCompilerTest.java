@@ -283,12 +283,12 @@ public class PathCompilerTest {
 
     @Test
     public void a_doc_context_must_be_true() {
-        assert(PathCompiler.isStartsWithDoller("$.prop"));
+        assert(PathCompiler.isProbablyJsonPath("$.prop"));
     }
 
     @Test
     public void a_bracket_notation_doc_context_must_be_true() {
-        assert(PathCompiler.isStartsWithDoller("$['prop']"));
+        assert(PathCompiler.isProbablyJsonPath("$['prop']"));
     }
 
     @Test
