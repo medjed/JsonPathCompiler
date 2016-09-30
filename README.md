@@ -47,7 +47,7 @@ open build/reports/jacoco/test/html/index.html
 
 Add gradle.properties to your $homeDir/.gradle/
 
-```gradle properties
+```gradle.properties
 bintray_user=your_bintray_user
 bintray_apikey=your_bintray_apikey
 bintray_gpg_password=your_bintray_password
