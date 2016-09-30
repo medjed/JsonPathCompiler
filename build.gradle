@@ -52,7 +52,6 @@ allprojects {
 
     group = 'com.dena.analytics'
     description = 'Porting from https://github.com/jayway/JsonPath Cut out a PathCompiler.'
-    version = '0.0.3-SNAPSHOT'
 
     if (JavaVersion.current().isJava8Compatible()) {
         tasks.withType(Javadoc) {
