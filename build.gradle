@@ -5,6 +5,8 @@ plugins {
     id "jacoco"
     // id "findbugs"
     id "idea"
+    id 'net.researchgate.release' version '2.4.1'
+    id 'org.ajoberstar.grgit' version '1.5.1'
 }
 
 repositories {
@@ -14,6 +16,16 @@ repositories {
 
 configurations {
     provided
+}
+
+ext {
+    license = 'Apache-2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    websiteUrl = 'https://github.com/kysnm/JsonPathCompiler'
+    issueTrackerUrl = 'https://github.com/kysnm/JsonPathCompiler/issues'
+    vcsUrl = 'https://github.com/kysnm/JsonPathCompiler.git'
+    githubRepo = 'kysnm/JsonPathCompiler'
+    grgit = org.ajoberstar.grgit.Grgit.open(project.rootDir)
 }
 
 sourceCompatibility = 1.7
@@ -32,20 +44,13 @@ dependencies {
 
 allprojects {
     ext {
-        snapshotVersion = true
-        license = 'Apache-2.0'
-        licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-        websiteUrl = 'https://github.com/kysnm/JsonPathCompiler'
-        issueTrackerUrl = 'https://github.com/kysnm/JsonPathCompiler/issues'
-        vcsUrl = 'https://github.com/kysnm/JsonPathCompiler.git'
-        githubRepo = 'kysnm/JsonPathCompiler'
         displayName = null
         buildTimestamp = new Date().format('yyyy-MM-dd HH:mm:ss')
     }
 
     group = 'com.dena.analytics'
     description = 'Porting from https://github.com/jayway/JsonPath Cut out a PathCompiler.'
-    version = '0.0.3' + (snapshotVersion ? "-SNAPSHOT" : "")
+    version = '0.0.3-SNAPSHOT'
 
     if (JavaVersion.current().isJava8Compatible()) {
         tasks.withType(Javadoc) {
@@ -133,7 +138,7 @@ allprojects {
         publications = ['mavenPublication']
         configurations = ['archives']
 
-        dryRun = true
+//        dryRun = true
     }
 }
 
@@ -142,4 +147,23 @@ task classpath(type: Copy, dependsOn: ["jar"]) {
     from(configurations.provided + files(jar.archivePath))
     into "classpath"
 }
+
+task(generateJavadoc, type: Javadoc) << {
+    classpath = sourceSets.main.compileClasspath
+    source = sourceSets.main.allJava
+    if (JavaVersion.current().isJava8Compatible()) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
+    destinationDir = file("docs")
+}
+
+task(commitJavadoc, dependsOn: generateJavadoc) << {
+    println 'git add'
+    grgit.add(patterns: ['docs'])
+    grgit.commit(message: "Add javadoc " + version)
+}
+
+afterReleaseBuild.dependsOn commitJavadoc
+afterReleaseBuild.dependsOn bintrayUpload
+
 clean { delete "classpath" }
