@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.dena.analytics:JsonPathCompiler:0.0.3'
+    compile 'com.dena.analytics:JsonPathCompiler:0.0.4'
 }
 ```
 
