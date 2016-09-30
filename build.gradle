@@ -163,6 +163,10 @@ task(commitJavadoc, dependsOn: generateJavadoc) << {
     grgit.commit(message: "Add javadoc " + version)
 }
 
+release {
+    useAutomaticVersion = true
+}
+
 afterReleaseBuild.dependsOn commitJavadoc
 afterReleaseBuild.dependsOn bintrayUpload
 
