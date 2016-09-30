@@ -149,7 +149,7 @@ task classpath(type: Copy, dependsOn: ["jar"]) {
     into "classpath"
 }
 
-task(generateJavadoc, type: Javadoc) << {
+task generateJavadoc(type: Javadoc) {
     classpath = sourceSets.main.compileClasspath
     source = sourceSets.main.allJava
     if (JavaVersion.current().isJava8Compatible()) {
@@ -159,7 +159,6 @@ task(generateJavadoc, type: Javadoc) << {
 }
 
 task(commitJavadoc, dependsOn: generateJavadoc) << {
-    println 'git add'
     grgit.add(patterns: ['docs'])
     grgit.commit(message: "Add javadoc " + version)
 }
