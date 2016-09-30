@@ -28,6 +28,8 @@ ext {
     grgit = org.ajoberstar.grgit.Grgit.open(project.rootDir)
 }
 
+project.ext.set('release.useAutomaticVersion', 'true')
+
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
@@ -161,10 +163,6 @@ task(commitJavadoc, dependsOn: generateJavadoc) << {
     println 'git add'
     grgit.add(patterns: ['docs'])
     grgit.commit(message: "Add javadoc " + version)
-}
-
-release {
-    useAutomaticVersion = true
 }
 
 afterReleaseBuild.dependsOn commitJavadoc
