@@ -1,6 +1,6 @@
 # JsonPathCompiler
 
-[![Build Status](https://travis-ci.org/kysnm/JsonPathCompiler.svg?branch=master)](https://travis-ci.org/kysnm/JsonPathCompiler)[ ![Download](https://api.bintray.com/packages/kysnm/maven/JsonPathCompiler/images/download.svg) ](https://bintray.com/kysnm/maven/JsonPathCompiler/_latestVersion)[![Javadocs](http://javadoc.io/badge/com.dena.analytics/JsonPathCompiler.svg)](http://javadoc.io/doc/com.dena.analytics/JsonPathCompiler)
+[![Build Status](https://travis-ci.org/kysnm/JsonPathCompiler.svg?branch=master)](https://travis-ci.org/kysnm/JsonPathCompiler)[ ![Download](https://api.bintray.com/packages/kysnm/maven/JsonPathCompiler/images/download.svg) ](https://bintray.com/kysnm/maven/JsonPathCompiler/_latestVersion)
 
 Porting from https://github.com/jayway/JsonPath equivalent version 2.2.0, latest commit is 4dc0ca9
 
@@ -25,7 +25,7 @@ dependencies {
 
 Path path = PathCompiler.compile("$.aaa.bbb")
 
-More details, Please read a JavaDoc
+More details, Please read a [Javadoc](https://kysnm.github.io/JsonPathCompiler/)
 
 ## Development
 
