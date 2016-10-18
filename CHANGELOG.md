@@ -1,26 +1,32 @@
 # Changelog
 
+## 0.0.9 (2016-10-18)18
+
+Breaking Changes:
+
+* rename package from com.dena.analytics => io.github.medjed
+
 ## 0.0.6
 
-### Breaking changes
+Breaking changes:
 
-Change method name to isProbablyJsonPath from isStartWithDoller
+* Change method name to isProbablyJsonPath from isStartWithDoller
 
 ## 0.0.5
 
-### Bugfix
+Fixes:
 
-Fix javadoc generation
+* Fix javadoc generation
 
 ## 0.0.4
 
-### New feature
+Features:
 
-Release automation
-Generate Javadoc for github pages
+* Release automation
+* Generate Javadoc for github pages
 
 ## 0.0.3
 
-### Breaking changes
+Breaking changes:
 
-Change package name and group name
+* Change package name and group name
