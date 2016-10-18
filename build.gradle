@@ -21,10 +21,10 @@ configurations {
 ext {
     license = 'Apache-2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    websiteUrl = 'https://github.com/kysnm/JsonPathCompiler'
-    issueTrackerUrl = 'https://github.com/kysnm/JsonPathCompiler/issues'
-    vcsUrl = 'https://github.com/kysnm/JsonPathCompiler.git'
-    githubRepo = 'kysnm/JsonPathCompiler'
+    websiteUrl = 'https://github.com/medjed/JsonPathCompiler'
+    issueTrackerUrl = 'https://github.com/medjed/JsonPathCompiler/issues'
+    vcsUrl = 'https://github.com/medjed/JsonPathCompiler.git'
+    githubRepo = 'medjed/JsonPathCompiler'
     grgit = org.ajoberstar.grgit.Grgit.open(project.rootDir)
 }
 
@@ -50,7 +50,7 @@ allprojects {
         buildTimestamp = new Date().format('yyyy-MM-dd HH:mm:ss')
     }
 
-    group = 'com.dena.analytics'
+    group = 'io.github.medjed'
     description = 'Porting from https://github.com/jayway/JsonPath Cut out a PathCompiler.'
 
     if (JavaVersion.current().isJava8Compatible()) {
