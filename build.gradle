@@ -120,6 +120,7 @@ allprojects {
         key = project.hasProperty('bintray_apikey') ? bintray_apikey : ''
 
         pkg {
+            userOrg = 'medjed'
             repo = 'maven'
             name = project.name
             licenses = [project.license]
