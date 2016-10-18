@@ -1,6 +1,12 @@
 # Changelog
 
-## 0.0.9 (2016-10-18)18
+## 0.0.11 (2016-10-19)
+
+Enhancements:
+
+* make PathToken#isLeaf(), isRoot(), isUpstreamDefinite() be public
+
+## 0.0.10 (2016-10-18)
 
 Breaking Changes:
 
