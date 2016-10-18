@@ -147,15 +147,15 @@ public abstract class PathToken {
         return next;
     }
 
-    boolean isLeaf() {
+    public boolean isLeaf() {
         return next == null;
     }
 
-    boolean isRoot() {
+    public boolean isRoot() {
         return  prev == null;
     }
 
-    boolean isUpstreamDefinite() {
+    public boolean isUpstreamDefinite() {
         if (upstreamDefinite == null) {
             upstreamDefinite = isRoot() || prev.isTokenDefinite() && prev.isUpstreamDefinite();
         }
