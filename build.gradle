@@ -118,6 +118,7 @@ allprojects {
     bintray {
         user = project.hasProperty('bintray_user') ? bintray_user : ''
         key = project.hasProperty('bintray_apikey') ? bintray_apikey : ''
+        publish = true // automatic publish
 
         pkg {
             userOrg = 'medjed'
