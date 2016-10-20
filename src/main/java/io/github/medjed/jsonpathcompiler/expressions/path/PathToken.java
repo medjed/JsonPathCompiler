@@ -21,6 +21,7 @@ import io.github.medjed.jsonpathcompiler.expressions.Utils;
 import io.github.medjed.jsonpathcompiler.expressions.function.PathFunction;
 import io.github.medjed.jsonpathcompiler.spi.json.JsonProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class PathToken {
@@ -40,7 +41,7 @@ public abstract class PathToken {
 
         if(properties.size() == 1) {
             String property = properties.get(0);
-            String evalPath = Utils.concat(currentPath, "['", property, "']");
+            String evalPath = Utils.concat(currentPath, "['", Utils.escape(property, true), "']");
             Object propertyVal = readObjectProperty(property, model, ctx);
             if(propertyVal == JsonProvider.UNDEFINED){
                 // Conditions below heavily depend on current token type (and its logic) and are not "universal",
@@ -81,7 +82,11 @@ public abstract class PathToken {
                 next().evaluate(evalPath, pathRef, propertyVal, ctx);
             }
         } else {
-            String evalPath = currentPath + "[" + Utils.join(", ", "'", properties) + "]";
+            ArrayList<String> escapedProperties = new ArrayList<>(properties.size());
+            for (int i = 0; i < properties.size(); i++) {
+                escapedProperties.add(i, Utils.escape(properties.get(i), true));
+            }
+            String evalPath = currentPath + "[" + Utils.join(", ", "'", escapedProperties) + "]";
 
             assert isLeaf() : "non-leaf multi props handled elsewhere";
 

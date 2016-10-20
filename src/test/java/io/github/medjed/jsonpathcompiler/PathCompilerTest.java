@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 public class PathCompilerTest {
 
@@ -293,6 +294,12 @@ public class PathCompilerTest {
     public void a_parent_path_must_be_resolved() {
         Path path = PathCompiler.compile("$.prop[0]");
         assertThat(path.getParentPath()).isEqualTo("$['prop']");
+    }
+
+    @Test
+    public void a_single_quote_must_be_escaped() {
+        Path path = PathCompiler.compile("$['\\'foo']");
+        assertEquals("$['\\'foo']", path.toString());
     }
 
     @Test

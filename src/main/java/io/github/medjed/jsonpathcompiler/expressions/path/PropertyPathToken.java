@@ -100,9 +100,13 @@ public class PropertyPathToken extends PathToken {
 
     @Override
     public String getPathFragment() {
+        ArrayList<String> escapedProperties = new ArrayList<>(properties.size());
+        for (int i = 0; i < properties.size(); i++) {
+            escapedProperties.add(i, Utils.escape(properties.get(i), singleQuote));
+        }
         return new StringBuilder()
                 .append("[")
-                .append(Utils.join(",", stringDelimiter, properties))
+                .append(Utils.join(",", stringDelimiter, escapedProperties))
                 .append("]").toString();
     }
 }
