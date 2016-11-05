@@ -49,7 +49,7 @@ public class PathCompiler {
     private final LinkedList<Predicate> filterStack;
     private final CharacterIndex path;
 
-    public static Boolean isProbablyJsonPath(String path)
+    public static boolean isProbablyJsonPath(String path)
     {
         return path.startsWith(DOT_NOTATION_ROOT_PATH) || path.startsWith(BRACKET_NOTATION_ROOT_PATH);
     }
