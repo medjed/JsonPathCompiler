@@ -70,11 +70,12 @@ open build/reports/jacoco/test/html/index.html
 
 ## Release
 
-Add gradle.properties to your $homeDir/.gradle/
+Add gradle.properties to your $homeDir/.gradle/. Java8 is required for `bintrayUpload`.
 
 ```gradle.properties
 bintray_user=your_bintray_user
 bintray_apikey=your_bintray_apikey
+org.gradle.java.home=/path/to/java8/home
 ```
 
 Run release:
