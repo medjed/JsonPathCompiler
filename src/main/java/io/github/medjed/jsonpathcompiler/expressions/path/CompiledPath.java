@@ -39,29 +39,6 @@ public class CompiledPath implements Path
     }
 
     @Override
-    public RootPathToken getRoot() { return root; }
-
-    @Override
-    public String getParentPath() {
-        return StringUtils.removeEnd(root.toString(), root.getTailPath());
-    }
-
-    @Override
-    public PathToken getTail() {
-        return root.getTail();
-    }
-
-    @Override
-    public String getTailPath() {
-        return root.getTailPath();
-    }
-
-    @Override
-    public boolean isRootPath() {
-        return isRootPath;
-    }
-
-    @Override
     public EvaluationContext evaluate(Object document, Object rootDocument, Configuration configuration, boolean forUpdate) {
         if (logger.isDebugEnabled()) {
             logger.debug("Evaluating path: {}", toString());
@@ -94,5 +71,28 @@ public class CompiledPath implements Path
     @Override
     public String toString() {
         return root.toString();
+    }
+
+    @Override
+    public boolean isRootPath() {
+        return isRootPath;
+    }
+
+    @Override
+    public RootPathToken getRoot() { return root; }
+
+    @Override
+    public String getParentPath() {
+        return StringUtils.removeEnd(root.toString(), root.getTailPath());
+    }
+
+    @Override
+    public PathToken getTail() {
+        return root.getTail();
+    }
+
+    @Override
+    public String getTailPath() {
+        return root.getTailPath();
     }
 }

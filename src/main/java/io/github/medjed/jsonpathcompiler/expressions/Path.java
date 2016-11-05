@@ -63,6 +63,8 @@ public interface Path {
      */
     boolean isRootPath();
 
+    String toString();
+
     RootPathToken getRoot();
 
     String getParentPath();

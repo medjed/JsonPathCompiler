@@ -31,12 +31,23 @@ while (! parts.isLeaf()) {
     parts = parts.next(); // first next() skips "$"
     partialPath.append(parts.getPathFragment());
 }
-System.out.println(partialPath.toString()); //=> $['aaa']['bbb']
+partialPath.toString(); //=> $['aaa']['bbb']
 ```
 
 ```java
-String jsonPath = new StringBuilder("$['").append(expressions.Utils.escape("foo.bar", true)).append("']").toString();
-System.out.println(jsonPath); //=> $['foo.bar']
+Path compiledPath = PathCompiler.compile("$.aaa[0].bbb");
+compiledPath.toString(); //=> $['aaa'][0]['bbb']
+compiledPath.getParentPath(); //=> $['aaa'][0]
+compiledPath.getTailPath(); //=> ['bbb']
+```
+
+```java
+new StringBuilder("['").append(Utils.escape("foo.bar", true)).append("']").toString();
+//=> ['foo.bar']
+PropertyPathToken.getPathFragment("foo.bar", true);
+//=> ['foo.bar']
+ArrayPathToken.getPathFragment(0);
+//=> [0]
 ```
 
 More details, Please read a [Javadoc](https://medjed.github.io/JsonPathCompiler/)
