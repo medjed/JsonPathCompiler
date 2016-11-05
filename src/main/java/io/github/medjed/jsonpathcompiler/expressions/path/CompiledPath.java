@@ -39,11 +39,21 @@ public class CompiledPath implements Path
     }
 
     @Override
-    public PathToken getRoot() { return root; }
+    public RootPathToken getRoot() { return root; }
 
     @Override
     public String getParentPath() {
         return StringUtils.removeEnd(root.toString(), root.getTailPath());
+    }
+
+    @Override
+    public PathToken getTail() {
+        return root.getTail();
+    }
+
+    @Override
+    public String getTailPath() {
+        return root.getTailPath();
     }
 
     @Override

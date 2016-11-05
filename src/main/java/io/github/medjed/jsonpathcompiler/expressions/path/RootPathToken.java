@@ -28,7 +28,7 @@ public class RootPathToken extends PathToken {
 
     RootPathToken(char rootToken) {
         this.rootToken = Character.toString(rootToken);;
-        this.tail = this;
+        this.tail = this; // tail is appended by appendTailToken
         this.tokenCount = 1;
     }
 
@@ -38,7 +38,7 @@ public class RootPathToken extends PathToken {
     }
 
     public RootPathToken append(PathToken next) {
-        this.tail = tail.appendTailToken(next);
+        this.tail = tail.appendTailToken(next); // append next to tail and go to the new tail
         this.tokenCount++;
         return this;
     }
@@ -78,8 +78,12 @@ public class RootPathToken extends PathToken {
     }
 
 
-    public PathToken getTail() { return tail; }
+    public PathToken getTail() {
+        return tail;
+    }
 
-    public String getTailPath() { return tail.toString(); }
+    public String getTailPath() {
+        return tail.toString();
+    }
 
 }

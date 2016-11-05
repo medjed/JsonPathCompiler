@@ -16,6 +16,7 @@ package io.github.medjed.jsonpathcompiler.expressions;
 
 import io.github.medjed.jsonpathcompiler.Configuration;
 import io.github.medjed.jsonpathcompiler.expressions.path.PathToken;
+import io.github.medjed.jsonpathcompiler.expressions.path.RootPathToken;
 
 /**
  *
@@ -62,8 +63,11 @@ public interface Path {
      */
     boolean isRootPath();
 
-    PathToken getRoot();
+    RootPathToken getRoot();
 
     String getParentPath();
 
+    PathToken getTail();
+
+    String getTailPath();
 }
