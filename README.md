@@ -50,7 +50,6 @@ Add gradle.properties to your $homeDir/.gradle/
 ```gradle.properties
 bintray_user=your_bintray_user
 bintray_apikey=your_bintray_apikey
-bintray_gpg_password=your_bintray_password
 ```
 
 Run release:

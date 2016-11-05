@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.0.13 (2016-11-05)
+
+Enhancements:
+
+* Just version up
+
+## 0.0.12 (2016-10-20)
+
+Fixes:
+
+* Escape properties
+
 ## 0.0.11 (2016-10-19)
 
 Enhancements:
