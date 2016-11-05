@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0 (2016-11-05)
+
+Enhancements:
+
+* Just version up
+
 ## 0.0.13 (2016-11-05)
 
 Enhancements:
