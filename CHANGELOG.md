@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.1 (2016-11-06)
+
+Enhancements:
+
+* Add some utility functions
+  * Utils.escape(String) which is a short-hand for Utils.escape(String, true)
+  * PropertyPathToken.getPathFragment(String property , boolean singleQuote)
+  * PropertyPathToken.getPathFragment(List<String> properties, boolean singleQuote)
+  * ArrayIndexOperation.toString(Integer index)
+  * ArrayIndexOperation.toString(List<Integer> indexes)
+  * ArraySliceOperation.toString(Integer from, Integer to)
+  * ArrayPathToken.getPathFragment(Integer index)
+  * ArrayPathToken.getPathFragment(List<Integer> indexes)
+  * ArrayPathToken.getPathFragment(Integer from, Integer to)
+
 ## 0.1.0 (2016-11-05)
 
 Enhancements:
