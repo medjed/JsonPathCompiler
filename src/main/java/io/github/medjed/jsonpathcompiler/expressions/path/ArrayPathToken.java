@@ -20,10 +20,15 @@ import io.github.medjed.jsonpathcompiler.expressions.PathRef;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 import static java.lang.String.format;
 
 /**
+ * [<number> (, <number>)]
+ * [start:end]
  *
+ * Note that [*] is WildcardPathToken, not ArrayPathToken
  */
 public class ArrayPathToken extends PathToken {
 
@@ -149,6 +154,18 @@ public class ArrayPathToken extends PathToken {
         } else {
             return arraySliceOperation.toString();
         }
+    }
+
+    public static String getPathFragment(Integer from, Integer to) {
+        return ArraySliceOperation.toString(from ,to);
+    }
+
+    public static String getPathFragment(Integer index) {
+        return ArrayIndexOperation.toString(index);
+    }
+
+    public static String getPathFragment(List<Integer> indexes) {
+        return ArrayIndexOperation.toString(indexes);
     }
 
     @Override

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * ['<name>' (, '<name>')]
  */
 public class PropertyPathToken extends PathToken {
 
@@ -103,10 +103,6 @@ public class PropertyPathToken extends PathToken {
         return PropertyPathToken.getPathFragment(properties, singleQuote);
     }
 
-    public static String getPathFragment(List<String> properties) {
-        return getPathFragment(properties, true);
-    }
-
     public static String getPathFragment(String property) {
         return getPathFragment(property, true);
     }
@@ -117,6 +113,10 @@ public class PropertyPathToken extends PathToken {
         return new StringBuilder("[").append(wrap)
                 .append(escapedProperty)
                 .append(wrap).append("]").toString();
+    }
+
+    public static String getPathFragment(List<String> properties) {
+        return getPathFragment(properties, true);
     }
 
     public static String getPathFragment(List<String> properties, boolean singleQuote) {

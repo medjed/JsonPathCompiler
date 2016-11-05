@@ -10,6 +10,9 @@ import java.util.regex.Pattern;
 
 import static java.lang.Character.isDigit;
 
+/*
+ * [<number> (, <number>)]
+ */
 public class ArrayIndexOperation {
 
     private final static Pattern COMMA = Pattern.compile("\\s*,\\s*");
@@ -30,9 +33,22 @@ public class ArrayIndexOperation {
 
     @Override
     public String toString() {
+        return ArrayIndexOperation.toString(indexes);
+    }
+
+    public static String toString(List<Integer> indexes) {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
         sb.append(Utils.join(",", indexes));
+        sb.append("]");
+
+        return sb.toString();
+    }
+
+    public static String toString(Integer index) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        sb.append(index.toString());
         sb.append("]");
 
         return sb.toString();

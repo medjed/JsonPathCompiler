@@ -4,6 +4,9 @@ import io.github.medjed.jsonpathcompiler.InvalidPathException;
 
 import static java.lang.Character.isDigit;
 
+/*
+ * [start:end]
+ */
 public class ArraySliceOperation {
 
     public enum Operation {
@@ -36,6 +39,10 @@ public class ArraySliceOperation {
 
     @Override
     public String toString() {
+        return ArraySliceOperation.toString(from, to);
+    }
+
+    public static String toString(Integer from, Integer to) {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
         sb.append(from == null ? "" : from.toString());
