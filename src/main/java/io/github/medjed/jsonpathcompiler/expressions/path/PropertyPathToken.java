@@ -28,7 +28,7 @@ import java.util.List;
 public class PropertyPathToken extends PathToken {
 
     private final List<String> properties;
-    private final String stringDelimiter;
+    private final String wrap;
     private final boolean singleQuote;
 
     private static final char SINGLE_QUOTE = '\'';
@@ -39,7 +39,7 @@ public class PropertyPathToken extends PathToken {
             throw new InvalidPathException("Empty properties");
         }
         this.properties = properties;
-        this.stringDelimiter = singleQuote ? Character.toString(SINGLE_QUOTE) : Character.toString(DOUBLE_QUOTE);
+        this.wrap = singleQuote ? Character.toString(SINGLE_QUOTE) : Character.toString(DOUBLE_QUOTE);
         this.singleQuote = singleQuote;
     }
 
@@ -100,13 +100,33 @@ public class PropertyPathToken extends PathToken {
 
     @Override
     public String getPathFragment() {
+        return PropertyPathToken.getPathFragment(properties, singleQuote);
+    }
+
+    public static String getPathFragment(List<String> properties) {
+        return getPathFragment(properties, true);
+    }
+
+    public static String getPathFragment(String property) {
+        return getPathFragment(property, true);
+    }
+
+    public static String getPathFragment(String property, boolean singleQuote) {
+        String escapedProperty = Utils.escape(property, singleQuote);
+        String wrap = singleQuote ? Character.toString(SINGLE_QUOTE) : Character.toString(DOUBLE_QUOTE);
+        return new StringBuilder("[").append(wrap)
+                .append(escapedProperty)
+                .append(wrap).append("]").toString();
+    }
+
+    public static String getPathFragment(List<String> properties, boolean singleQuote) {
         ArrayList<String> escapedProperties = new ArrayList<>(properties.size());
         for (int i = 0; i < properties.size(); i++) {
             escapedProperties.add(i, Utils.escape(properties.get(i), singleQuote));
         }
-        return new StringBuilder()
-                .append("[")
-                .append(Utils.join(",", stringDelimiter, escapedProperties))
+        String wrap = singleQuote ? Character.toString(SINGLE_QUOTE) : Character.toString(DOUBLE_QUOTE);
+        return new StringBuilder("[")
+                .append(Utils.join(",", wrap, escapedProperties))
                 .append("]").toString();
     }
 }

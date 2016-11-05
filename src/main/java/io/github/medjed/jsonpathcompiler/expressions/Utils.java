@@ -93,6 +93,10 @@ public final class Utils {
         }
     }
 
+    public static String escape(String str) {
+        return escape(str, true);
+    }
+
     public static String escape(String str, boolean escapeSingleQuote) {
         if (str == null) {
             return null;
