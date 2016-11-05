@@ -23,7 +23,21 @@ dependencies {
 
 ## Usage
 
-Path path = PathCompiler.compile("$.aaa.bbb")
+```java
+Path compiledPath = PathCompiler.compile("$.aaa.bbb");
+PathToken parts = compiledPath.getRoot();
+StringBuilder partialPath = new StringBuilder("$");
+while (! parts.isLeaf()) {
+    parts = parts.next(); // first next() skips "$"
+    partialPath.append(parts.getPathFragment());
+}
+System.out.println(partialPath.toString()); //=> $['aaa']['bbb']
+```
+
+```java
+String jsonPath = new StringBuilder("$['").append(expressions.Utils.escape("foo.bar", true)).append("']").toString();
+System.out.println(jsonPath); //=> $['foo.bar']
+```
 
 More details, Please read a [Javadoc](https://medjed.github.io/JsonPathCompiler/)
 
