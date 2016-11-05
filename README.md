@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    compile 'io.github.medjed:JsonPathCompiler:0.0.4'
+    compile 'io.github.medjed:JsonPathCompiler:0.1.+'
 }
 ```
 
