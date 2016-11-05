@@ -1,4 +1,12 @@
-# Changelog
+# ChangeLog
+
+## 0.1.2 (2016-11-06)
+
+Enhancements:
+
+* Add CompiledPath#toString()
+* Add CompiledPath#getTail()
+* Add CompiledPath#getTailPath()
 
 ## 0.1.1 (2016-11-06)
 
