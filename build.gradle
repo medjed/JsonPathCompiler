@@ -1,5 +1,4 @@
 plugins {
-    id "com.jfrog.bintray" version "1.7"
     id "maven-publish"
     id "java"
     id "jacoco"
@@ -11,7 +10,6 @@ plugins {
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 configurations {
@@ -81,8 +79,18 @@ allprojects {
     }
 
     publishing {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = "https://maven.pkg.github.com/medjed/JsonPathCompiler"
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
         publications {
-            mavenPublication(MavenPublication) {
+            gpr(MavenPublication) {
                 from components.java
                 groupId project.group
                 artifactId project.name
@@ -114,35 +122,6 @@ allprojects {
             }
         }
     }
-
-    bintray {
-        user = project.hasProperty('bintray_user') ? bintray_user : ''
-        key = project.hasProperty('bintray_apikey') ? bintray_apikey : ''
-        publish = true // automatic publish
-
-        pkg {
-            userOrg = 'medjed'
-            repo = 'maven'
-            name = project.name
-            licenses = [project.license]
-            websiteUrl = project.websiteUrl
-            issueTrackerUrl = project.issueTrackerUrl
-            vcsUrl = project.vcsUrl
-            githubRepo = project.githubRepo
-            version {
-                name = project.version
-                released = new Date()
-                gpg {
-                    sign = true
-                    passphrase = project.hasProperty('bintray_gpg_password') ? bintray_gpg_password : ''
-                }
-            }
-        }
-        publications = ['mavenPublication']
-        configurations = ['archives']
-
-//        dryRun = true
-    }
 }
 
 task classpath(type: Copy, dependsOn: ["jar"]) {
@@ -166,6 +145,5 @@ task(commitJavadoc, dependsOn: generateJavadoc) << {
 }
 
 afterReleaseBuild.dependsOn commitJavadoc
-afterReleaseBuild.dependsOn bintrayUpload
 
 clean { delete "classpath" }
