@@ -1,5 +1,7 @@
 name: Publish package to GitHub Packages
 on:
+  pull_request:
+    types: [opened, synchronize]
   release:
     types: [created]
 jobs:
